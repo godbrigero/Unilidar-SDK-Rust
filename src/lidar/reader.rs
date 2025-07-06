@@ -14,20 +14,24 @@ pub struct LidarReader {
 
 impl LidarReader {
     pub fn new_with_initialize(
+        cloud_scan_num: u32,
         port: String,
         baudrate: u32,
         min_distance_meters: f64,
         max_distance_meters: f64,
+        rotate_yaw_bias: f64,
+        range_scale: f64,
+        range_bias: f64,
     ) -> Result<Self, Box<dyn std::error::Error>> {
         let mut reader = make_unitree_lidar_reader();
 
         let result = reader.pin_mut().initialize(
-            18,
+            cloud_scan_num as u16,
             &port,
             baudrate,
-            min_distance_meters as f32,
-            max_distance_meters as f32,
-            0.0,
+            rotate_yaw_bias as f32,
+            range_scale as f32,
+            range_bias as f32,
             max_distance_meters as f32,
             min_distance_meters as f32,
         );
@@ -37,6 +41,23 @@ impl LidarReader {
         }
 
         Ok(Self { reader })
+    }
+
+    pub fn new(
+        port: String,
+        min_distance_meters: f64,
+        max_distance_meters: f64,
+    ) -> Result<Self, Box<dyn std::error::Error>> {
+        return Self::new_with_initialize(
+            18,
+            port,
+            2000000,
+            min_distance_meters,
+            max_distance_meters,
+            0.0,
+            0.001,
+            0.0,
+        );
     }
 
     pub fn start_lidar(&mut self) -> Result<(), Box<dyn std::error::Error>> {
