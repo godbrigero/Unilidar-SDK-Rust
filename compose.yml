@@ -1,6 +1,0 @@
-services:
-  blitz:
-    build: .
-    volumes:
-      - .:/mnt
-    entrypoint: "sleep inf"

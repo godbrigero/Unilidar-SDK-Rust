@@ -1,0 +1,8 @@
+services:
+  unilidar:
+    build:
+      context: .
+      dockerfile: Dockerfile.x86_64
+    volumes:
+      - .:/mnt
+    entrypoint: "sleep inf" 
