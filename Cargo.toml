@@ -2,6 +2,16 @@
 name = "unitree-lidar-l1-rust"
 version = "0.1.0"
 edition = "2024"
+authors = ["Denis Koterov <denis.koterov@gmail.com>"]
+description = "Rust wrapper for Unitree Lidar L1 SDK"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/godbrigero/Unilidar-SDK-Rust"
+homepage = "https://github.com/godbrigero/Unilidar-SDK-Rust"
+documentation = "https://docs.rs/unitree-lidar-l1-rust"
+keywords = ["lidar", "unitree", "robotics", "sensors", "l1"]
+categories = ["hardware-support", "science::robotics"]
+readme = "README.md"
+exclude = ["*.yml", "Dockerfile.*"]
 
 [dependencies]
 tokio = { version = "1.36", features = ["full"] }
