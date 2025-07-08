@@ -45,11 +45,12 @@ impl LidarReader {
 
     pub fn new(
         port: String,
+        cloud_scan_num: u32,
         min_distance_meters: f64,
         max_distance_meters: f64,
     ) -> Result<Self, Box<dyn std::error::Error>> {
         return Self::new_with_initialize(
-            18,
+            cloud_scan_num,
             port,
             2000000,
             min_distance_meters,
@@ -107,7 +108,6 @@ impl Stream for LidarStream {
                 Poll::Ready(Some(LidarResult::ImuReading(imu)))
             }
             _ => {
-                // If no data, wake up after a short delay
                 cx.waker().wake_by_ref();
                 Poll::Pending
             }
