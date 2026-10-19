@@ -13,23 +13,26 @@ categories = ["hardware-support", "science::robotics"]
 readme = "README.md"
 exclude = ["*.yml", "Dockerfile.*"]
 
+[features]
+default = []
+async = ["dep:tokio", "dep:futures-core"]
+nalgebra = ["dep:nalgebra"]
+
 [dependencies]
-tokio = { version = "1.36", features = ["full"] }
-tokio-tungstenite = "0.27.0"
-futures-util = "0.3"
-prost = "0.14.1"
-bytes = "1.5"
-url = "2.5"
-async-trait = "0.1"
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-libc = "0.2.171"
 cxx = "1.0.150"
-kiss3d = "0.35.0"
-nalgebra = { version = "0.33.2", features = ["serde-serialize"] }
-dbscan = "0.3.1"
-image = "0.25.6"
-clap = { version = "4.5", features = ["derive"] }
+tokio = { version = "1.36", default-features = false, features = ["sync"], optional = true }
+futures-core = { version = "0.3", optional = true }
+nalgebra = { version = "0.33.2", optional = true }
+
+[dev-dependencies]
+tokio = { version = "1.36", features = ["macros", "rt-multi-thread"] }
+
+[package.metadata.docs.rs]
+all-features = true
 
 [build-dependencies]
 cxx-build = "1.0.150"
+
+[[example]]
+name = "async"
+required-features = ["async"]
